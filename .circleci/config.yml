@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   node: circleci/node@1.1
+  heroku: circleci/heroku@1.2.2
 jobs:
   build:
     executor:
@@ -12,3 +13,15 @@ jobs:
           steps:
             - run: npm install
       - run: npm run test
+
+workflows:
+  heroku_deploy:
+    jobs:
+      - build
+      - heroku/deploy-via-git:
+          requires:
+            - build # only run deploy-via-git job if the build job has completed
+          filters:
+            branches:
+              only: master # only run deploy-via-git job on master branch
+

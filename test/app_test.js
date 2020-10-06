@@ -14,13 +14,13 @@ describe("test if the numbers add up", function () {
     this.dom = dom;
   });
 
-  it("addition test ", function () {
+  it("addition test ", function (resolve) {
     this.dom.window.addEventListener("DOMContentLoaded", () => {
       this.dom.window.eval("button.click();");
-
       expect(
         this.dom.window.document.getElementById("result").textContent
       ).to.be.equal("10");
+      resolve();
     });
   });
 });
